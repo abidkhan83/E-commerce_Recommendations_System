@@ -7,18 +7,18 @@ from difflib import get_close_matches
 
 app = Flask(__name__)
 
-# Load files===========================================================================================================
+# Load files
 trending_products = pd.read_csv("models/trending_products.csv")
 train_data = pd.read_csv("models/clean_data.csv")
 
-# Function to truncate product name====================================================================================
+# Function to truncate product name
 def truncate(text, length):
     if len(text) > length:
         return text[:length] + "..."
     else:
         return text
 
-# Recommendation function=============================================================================================
+# Recommendation function
 def content_based_recommendation(train_data, item_name, top_n=10):
     # Normalize the input product name
     item_name = item_name.strip().lower()
@@ -60,7 +60,7 @@ def content_based_recommendation(train_data, item_name, top_n=10):
 
     return recommended_items_details
 
-# List of predefined image URLs=======================================================================================
+# List of predefined image URLs
 random_image_urls = [
     "static/img/img_1.png",
     "static/img/img_2.png",
@@ -72,7 +72,7 @@ random_image_urls = [
     "static/img/img_8.png",
 ]
 
-# Routes==============================================================================================================
+# Routes
 @app.route("/")
 def index():
     random_product_image_urls = [random.choice(random_image_urls) for _ in range(len(trending_products))]
